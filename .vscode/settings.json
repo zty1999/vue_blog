@@ -1,0 +1,9 @@
+{
+  "git.ignoreLimitWarning": true,
+  "easysass.formats": [
+		{
+			"format": "expanded",
+			"extension": ""
+		}
+	],
+}

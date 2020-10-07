@@ -1,0 +1,393 @@
+
+//reset
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  font-size: 13px;//1rem等于13px
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2em;
+  color:#000;
+  background-color: #f1f1f1;
+  -webkit-font-smoothing: antialiased;//字体平滑
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+  border:  none;
+  :link {
+    color: #000;
+    text-decoration: none;
+    border: none;
+  }
+  :visited{
+    color: #000;
+    text-decoration: none;
+    border: none;
+  }
+  :hover {
+    color: #000;
+    text-decoration: none;
+    border: none;
+  }
+  :active {
+    color:#fff;
+    text-decoration: none;
+    border: none;
+  }
+}
+
+
+
+p {
+  line-height: 1.5em;
+}
+
+// h3 {
+//   margin: 40px 0 0;
+// }
+
+// ul {
+//   list-style-type: none;
+//   padding: 0;
+// }
+
+// li {
+//   display: inline-block;
+//   margin: 0 10px;
+// }
+
+//colors
+
+$colors: (
+  "primary": #db9e3f,//主要颜色
+  "info": #4b67af,
+  "blue": #4394e4,
+  "blue-1": #1f3695,
+  "danger": #791a16,
+  "brown": #805300,
+  "white": #fff,//属性名和颜色名称有冲突时，尽量用引号引起来
+  "light": #f9f9f9,
+  "light-1": #d4d9de,
+  "grey": #999,
+  "grey-1": #666,
+  "dark-1": #343440,
+  "dark-2": #34342d,
+  "dark": #222,
+  "black": #000,
+  "black2": #1d1f31
+);
+$border-color: map-get($map: $colors, $key: "light-1");
+
+@each $colorKey,$color in $colors {
+  .text-#{$colorKey} {
+    color: $color;
+  }
+  .bg-#{$colorKey} {
+    background-color: $color !important;
+  }
+}
+//这个对象集合循环后样式如text样式一样
+// 例: .text-primary {color: #db9e3f;}
+// .bg-primary {background-color: #db9e3f;}
+
+
+
+//text align
+@each $var in (left,center,right) {
+  .text-#{$var} {
+    text-align: $var !important;
+  }
+}
+// 这个数组集合循环后是以下样式
+// .text-left {
+//   text-align: left;
+// }
+// .text-center {
+//   text-align: center;
+// }
+// .text-right {
+//   text-align: right;
+// }
+
+
+//font-size
+$base-font-size: 1rem;
+$font-sizes: (
+  xxs: 0.6154,//8px
+  xs: 0.7692, //10px 将10px转换为0.7692rem后将rem去掉，为倍数
+  sm: 0.9231,//12px
+  md: 1,//表示一倍，即13px
+  lg: 1.0769,//14px
+  xl: 1.2308,//16px
+  xxl: 1.3846,//18px
+);
+
+@each $sizeKey,$size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-size
+  }
+}
+
+//text overflow
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//flex
+.d-flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+};
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+$flex-jc: (//主轴
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+
+);
+@each $key,$value in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $value;
+  }
+}
+
+$flex-ai: (//交叉轴
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  stretch: stretch,
+
+);
+@each $key,$value in $flex-ai {
+  .ai-#{$key} {
+    align-items: $value;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+.flex-grow-1 {//例：左边宽度固定，就会自动占满右边剩余的宽度
+  flex-grow: 1;
+}
+
+
+//spacing
+//.mt-1  margin-top 1级
+$spacing-types: (m: margin, p: padding);
+$spacing-directions: (t: top, r: right, b: bottom, l: left);
+$spacing-base-size: 1rem;//基础大小
+$spacing-sizes: (
+  0: 0,
+  1: 0.25, 
+  2: 0.5,
+  3: 1,
+  4: 1.5, 
+  5: 3
+);
+@each $typeKey,$type in $spacing-types {
+  //.m-1
+  @each $sizekey,$size in $spacing-sizes {
+    //.m-1 {margin-1: 0.25rem;}
+    .#{$typeKey}-#{$sizekey} {
+      #{$type}: $size * $spacing-base-size
+    }
+  }
+  //.mx-1
+  @each $sizekey,$size in $spacing-sizes {
+    //.mx-1 {margin-left: 0.25rem;margin-right: 0.25rem;}
+    .#{$typeKey}x-#{$sizekey} {
+      #{$type}-left: $size * $spacing-base-size;
+      #{$type}-right: $size * $spacing-base-size;
+    }
+  }
+  //my-1
+  @each $sizekey,$size in $spacing-sizes {
+    //.my-1 {margin-top: 0.25rem;margin-bottom: 0.25rem;}
+    .#{$typeKey}y-#{$sizekey} {
+      #{$type}-top: $size * $spacing-base-size;
+      #{$type}-bottom: $size * $spacing-base-size;
+    }
+  }
+
+  //.mt-1
+  @each $directionKey,$direction in $spacing-directions {
+    @each $sizekey,$size in $spacing-sizes {
+      //.mt-1 {margin-top: 0.25rem;}
+      .#{$typeKey}#{$directionKey}-#{$sizekey} {
+        #{$type}-#{$direction}: $size * $spacing-base-size
+      }
+    }
+  }
+}
+
+
+
+
+//button
+.btn {
+  border: none;
+  border-radius: 0.1538rem;
+  font-size: map-get($map: $font-sizes, $key: 'sm') * $base-font-size;//12px
+  padding: 0.2rem 0.6rem;
+}
+
+
+//nav
+.nav {
+  display: flex;
+  .nav-item {
+      border-bottom: 3px solid transparent;
+      padding-bottom: 0.2rem;
+    &.active {
+      color: map-get($colors, 'primary');
+      border-bottom-color: map-get($map: $colors, $key: "primary" );
+    }
+  }
+  &.nav-inverse {
+    .nav-item {
+      border-bottom: 3px solid transparent;
+      color: map-get($map: $colors, $key: "white" );
+      &.active {
+        color: map-get($map: $colors, $key: "white" );
+        // border-bottom: 3px solid transparent;
+        border-bottom-color: map-get($map: $colors, $key: "white" );
+
+      }
+    }
+  }
+  
+}
+
+
+
+
+
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  height: 100%;
+}
+
+//borders
+
+
+@each $dir in (top, right, bottom, left) {
+  .border-#{$dir} {
+    border-#{$dir}: 1px solid $border-color;
+  }
+}
+
+
+
+//sprite
+.sprite {
+  background: url("~@/assets/images/home/index2.png") no-repeat 0 0;
+  background-size: 28.8462rem;//375px
+  display: inline-block;
+  &.sprite-news {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+    background-position: 63.846% 15.517%;
+  }
+  &.sprite-story {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+      background-position: 91.383% 15.314%;
+  }
+  &.sprite-mall {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+    background-position:  36.546% 0.924%;
+  }
+  &.sprite-dnf {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24pxs
+    background-position: 9.18% 15.317%;
+  }
+  &.sprite-novice {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+    background-position: 91.533% 1.266%;
+  }
+  &.sprite-inherit {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+    background-position: 36.267% 15.287%;
+  }
+  &.sprite-sciamachy {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+    background-position: 9.302% 0.813%;
+  }
+  &.sprite-campsite  {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+    background-position: 63.5% 0.927%;
+  }
+  &.sprite-official-account  {
+    width: 2.3846rem;//31px
+    height: 1.8462rem;//24px	
+    
+    background-position: -1.2% 96.207%;
+
+  }
+  
+
+  
+  &.sprite-arrow {
+	  background-position: 38.577% 52.076%;
+	  width: 10px;
+	  height: 10px;
+  }
+} 
+.sprite-version {
+  width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+  background: url("~@/assets/images/home/version-icon.png") no-repeat 0 0;
+  background-size: 100% 100%;
+  display: inline-block;
+}
+.sprite-djhj {
+  width: 2.3846rem;//31px
+    height: 1.8462rem;//24px
+  background: url("~@/assets/images/home/djhj.png") no-repeat 0 0;
+  background-size: 100% 100%;
+  display: inline-block;
+}
+.sprite-wxwzt {
+  width: 2.3846rem;//31px
+  height: 1.077rem;//14px
+  margin: 5px 0;
+  background: url("~@/assets/images/home/wxwzt.png") no-repeat 0 0;
+  background-size: 100% 100%;
+}
+.sprite-cyhdy {
+  width: 34.9998px;//31px
+  height: 30.001px;//24px
+  margin:：-3px 0;
+  background: url("~@/assets/images/home/cyhdy.png") no-repeat 0 0;
+  background-size: 100% 100%;
+}

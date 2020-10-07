@@ -1,0 +1,338 @@
+// @import "./normalize.css";
+
+/* :root  -> 伪类 获取根元素html */
+:root {
+  /* 定义的变量 */
+  --color-text: #666;
+  --color-high-text: #ff5777;
+  --color-tint: #ff8198;
+  --color-background: #fff;
+  --font-size: 14px;
+  --line-height: 1.5;
+  --teal: #00b5ad;
+  --tint-background: #222;
+}
+
+.teal {
+  color: #00b5ad;
+}
+.white {
+  color: #fff;
+}
+.black {
+  color: #000;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-width: 1366px;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  user-select: none; /* 禁止用户鼠标在页面上选中文字/图片等 */
+  -webkit-tap-highlight-color: transparent; /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节 */
+  background: var(--color-background);
+  color: var(--color-text);
+  /* rem vw/vh */
+  width: 100vw;
+}
+
+a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.is-vertical {
+  flex-direction: column;
+}
+
+.el-breadcrumb {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.el-card {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.el-table {
+  margin-top: 15px;
+  // font-size: 12px;
+}
+
+.el-pagination {
+  margin-top: 15px;
+}
+
+.el-table thead {
+  color: #1f2d3d;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.clear-fix::after {
+  clear: both;
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.clear-fix {
+  zoom: 1;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  height: 100%;
+}
+
+/* container */
+.m-container {
+  max-width: 72em !important;
+  margin: auto !important;
+}
+.m-container-small {
+  max-width: 60em !important;
+  margin: 0 auto !important;
+}
+
+//colors
+$colors: (
+  "primary": #db9e3f,
+  //主要颜色
+    "info": #4b67af,
+  "blue": #4394e4,
+  "blue-1": #1f3695,
+  "danger": #791a16,
+  "brown": #805300,
+  "white": #fff,
+  //属性名和颜色名称有冲突时，尽量用引号引起来
+    "light": #f9f9f9,
+  "light-1": #d4d9de,
+  "grey": #999,
+  "grey-1": #666,
+  "dark-1": #343440,
+  "dark-2": #34342d,
+  "dark": #222,
+  "black": #000,
+  "black2": #1d1f31,
+);
+$border-color: map-get(
+  $map: $colors,
+  $key: "light-1",
+);
+
+@each $colorKey, $color in $colors {
+  .text-#{$colorKey} {
+    color: $color;
+  }
+  .bg-#{$colorKey} {
+    background-color: $color;
+  }
+
+  .border-#{$colorKey} {
+    border: 1px solid $color;
+  }
+  $border-directions: (
+    t: top,
+    r: right,
+    b: bottom,
+    l: left,
+  );
+  @each $typeKey, $type in $border-directions {
+    .border-#{$typeKey}-#{$color} {
+      border-#{$type}: 1px solid $color;
+    }
+  }
+}
+
+//font-size  fs-xs
+$base-font-size: 1rem;
+$font-sizes: (
+  xxs: 0.6154,
+  //8px
+    xs: 0.7692,
+  //10px 将10px转换为0.7692rem后将rem去掉，为倍数
+    sm: 0.9231,
+  //12px
+    md: 1,
+  //表示一倍，即13px
+    lg: 1.0769,
+  //14px
+    xl: 1.2308,
+  //16px
+    xxl: 1.3846,
+  //18px,
+);
+
+@each $sizeKey, $size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-size;
+  }
+}
+
+//text overflow
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//flex
+.d-flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+//flex-jc-start
+$flex-jc: (
+  //主轴
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around
+);
+@each $key, $value in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $value;
+  }
+}
+
+$flex-ai: (
+  //交叉轴
+    start: flex-start,
+  end: flex-end,
+  center: center,
+  stretch: stretch
+);
+@each $key, $value in $flex-ai {
+  .ai-#{$key} {
+    align-items: $value;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+.flex-grow-1 {
+  //例：左边宽度固定，就会自动占满右边剩余的宽度
+  flex-grow: 1;
+}
+
+//text align
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    text-align: $var !important;
+  }
+}
+
+/* text */
+.m-text {
+  font-weight: 400 !important;
+  letter-spacing: 1px !important;
+  line-height: 1.8;
+}
+.text-thin {
+  font-weight: 300 !important;
+}
+.text-fat {
+  font-weight: 700 !important;
+}
+.text-space {
+  letter-spacing: 1px !important;
+}
+.text-line {
+  line-height: 1.8;
+}
+
+//spacing
+//.mt-1  margin-top 1级
+$spacing-types: (
+  m: margin,
+  p: padding,
+);
+$spacing-directions: (
+  t: top,
+  r: right,
+  b: bottom,
+  l: left,
+);
+$spacing-base-size: 1rem; //基础大小
+$spacing-sizes: (
+  0: 0,
+  1: 0.25,
+  2: 0.5,
+  3: 1,
+  4: 1.5,
+  5: 3,
+);
+@each $typeKey, $type in $spacing-types {
+  //.m-1
+  @each $sizekey, $size in $spacing-sizes {
+    //.m-1 {margin-1: 0.25rem;}
+    .#{$typeKey}-#{$sizekey} {
+      #{$type}: $size * $spacing-base-size;
+    }
+  }
+  //.mx-1
+  @each $sizekey, $size in $spacing-sizes {
+    //.mx-1 {margin-left: 0.25rem;margin-right: 0.25rem;}
+    .#{$typeKey}x-#{$sizekey} {
+      #{$type}-left: $size * $spacing-base-size;
+      #{$type}-right: $size * $spacing-base-size;
+    }
+  }
+  //my-1
+  @each $sizekey, $size in $spacing-sizes {
+    //.my-1 {margin-top: 0.25rem;margin-bottom: 0.25rem;}
+    .#{$typeKey}y-#{$sizekey} {
+      #{$type}-top: $size * $spacing-base-size;
+      #{$type}-bottom: $size * $spacing-base-size;
+    }
+  }
+
+  //.mt-1
+  @each $directionKey, $direction in $spacing-directions {
+    @each $sizekey, $size in $spacing-sizes {
+      //.mt-1 {margin-top: 0.25rem;}
+      .#{$typeKey}#{$directionKey}-#{$sizekey} {
+        #{$type}-#{$direction}: $size * $spacing-base-size;
+      }
+    }
+  }
+}

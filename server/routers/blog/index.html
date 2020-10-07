@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width，initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<link rel="stylesheet" href=" /public/main/css/index.css">
+<script src="http:/ /libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/public/main/js/index.js"></script>
+</head>
+<body>
+<form class=" register">
+<input type="text" name="username"/>
+<input type="password" name="password" />
+<input type="button" class="regBtn" value="注册"/>
+</form>
+<script>
+$(function () {
+  $('.register .regBtn').click(function () {
+    $.ajax({
+      type: 'post',
+      url: '/api/user/register',
+      data: {
+        username: $('.register input[name="username"]').val(),
+        password: $('.register input[name="password"]').val(),
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(res)
+      }
+    })
+  })
+})
+ 
+</script>
+</body>
+</html>
+
